@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.billie.dao.Sign_Up_Mapper">
+	
+	<!-- 添加报名信息表数据 -->
+	<insert id="add_SUP" parameterType="java.util.HashMap" useGeneratedKeys="true"  keyProperty="SUP_ID">
+		INSERT INTO Sign_Up
+		(
+			SUP_Project,
+			SUP_Group,
+			SUP_School,
+			SUP_Area,
+			SUP_Contact,
+			SUP_Contact_Phone,
+			SUP_Contact_Email,
+			SUP_Address,
+			SUP_Fill_In_Person_ID,
+			SUP_Registration_Number,
+			SUP_IsEnter
+		)VALUES
+		(
+			#{SUP_Project},
+			#{SUP_Group},
+			#{SUP_School},
+			#{SUP_Area},
+			#{SUP_Contact},
+			#{SUP_Contact_Phone},
+			#{SUP_Contact_Email},
+			#{SUP_Address},
+			#{SUP_Fill_In_Person_ID},
+			#{SUP_Registration_Number},
+			"审核中"
+		)
+	</insert>
+	
+	<!-- 查询组别现有数量 -->
+	<select id="sel_count" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
+		SELECT COUNT(*) FROM Sign_Up 
+		<where>
+			SUP_Group = #{SUP_Group}
+		</where>
+	</select>
+	
+	
+	
+	<!-- 查询报名信息-->
+	<select id="sel_Map"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			SUP_ID,
+			SUP_Project,
+			SUP_Group,
+			SUP_School,
+			SUP_Area,
+			(SELECT  GROUP_CONCAT(SUDS_Name) FROM Sign_Up_Details WHERE SUDS_SUPID = A.SUP_ID) AS  SUDS_Name,
+			(SELECT  GROUP_CONCAT(SUIR_Name) FROM Sign_Up_Instructor WHERE SUIR_SUPID = A.SUP_ID) AS  SUIR_Name,
+			SUP_IsEnter
+		FROM
+			Sign_Up A
+		<where>
+				AND SUP_Fill_In_Person_ID = #{SUP_Fill_In_Person_ID}
+			<if test="SUP_Project!=null">
+			 	AND SUP_Project = #{SUP_Project}
+			 </if>
+			 <if test="SUP_Group!=null">
+			 	AND SUP_Group = #{SUP_Group}
+			 </if>
+			 <if test="type==1">
+				AND SUIR_Name  LIKE CONCAT('%',#{value},'%')
+			</if>
+			<if test="type==2">
+				AND SUP_School  LIKE CONCAT('%',#{value},'%')
+			</if>
+		</where>
+		LIMIT #{StarRow},#{PageSize}
+	</select>
+	
+	<!-- 查询报名信息-->
+	<select id="sel_Map_COUNT"  parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			Sign_Up A
+		<where>
+			AND SUP_Fill_In_Person_ID = #{SUP_Fill_In_Person_ID}
+			<if test="SUP_Project!=null">
+			 	AND SUP_Project = #{SUP_Project}
+			</if>
+			<if test="SUP_Group!=null">
+				AND SUP_Group = #{SUP_Group}
+			</if>
+			<if test="type==1">
+				AND SUIR_Name  LIKE CONCAT('%',#{value},'%')
+			</if>
+			<if test="type==2">
+				AND SUP_School  LIKE CONCAT('%',#{value},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询报名信息详情 -->
+	<select id="find_data"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			SUP_ID,
+			SUP_Project,
+			SUP_Group,
+			SUP_School,
+			SUP_Area,
+			SUP_Contact,
+			SUP_Contact_Phone,
+			SUP_Contact_Email,
+			SUP_Address,
+			SUP_Registration_Number
+		FROM
+			Sign_Up		
+		<where>
+			SUP_ID = #{SUP_ID}
+		</where>
+	</select>
+	
+	<!-- 修改报名详情表信息 -->
+	<update id="upd_data" parameterType="java.util.HashMap">
+		UPDATE Sign_Up
+		<set>
+			<if test="SUP_Project!=null">
+				SUP_Project = #{SUP_Project},
+			</if>
+			<if test="SUP_Group!=null">
+				SUP_Group = #{SUP_Group},
+			</if>
+			<if test="SUP_School!=null">
+				SUP_School = #{SUP_School},
+			</if>
+			<if test="SUP_Area!=null">
+				SUP_Area = #{SUP_Area},
+			</if>
+			<if test="SUP_Contact!=null">
+				SUP_Contact = #{SUP_Contact},
+			</if>
+			<if test="SUP_Contact_Phone!=null">
+				SUP_Contact_Phone = #{SUP_Contact_Phone},
+			</if>
+			<if test="SUP_Contact_Email!=null">
+				SUP_Contact_Email = #{SUP_Contact_Email},
+			</if>
+			<if test="SUP_Address!=null">
+				SUP_Address = #{SUP_Address},
+			</if>
+			<if test="SUP_IsEnter!=null">
+				SUP_IsEnter = #{SUP_IsEnter}
+			</if>
+		</set>
+		<where>
+			SUP_ID = #{SUP_ID}
+		</where>
+	</update>
+	
+	<!-- 修改  申报未完成-->
+	<update id="upd_IsEnter"  parameterType="java.util.HashMap">
+		UPDATE 
+			Sign_Up
+		<set>
+			SUP_IsEnter = #{SUP_IsEnter}
+		</set>
+		<where>
+			SUP_ID = #{SUP_ID}
+			AND SUP_IsEnter = "报名已成功"
+		</where>
+	</update>
+	
+	
+	<!-- 删除 报名信息 -->
+	<delete id="del_data" parameterType="java.util.HashMap">
+		DELETE FROM Sign_Up <where>SUP_ID = #{SUP_ID}</where>
+	</delete>
+	
+
+</mapper>

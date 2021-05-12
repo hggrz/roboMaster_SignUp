@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.billie.dao.T_User_Mapper">
+
+	<select id="Login" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT 
+			RUR_ID,
+			RUR_Name,
+			RUR_Email,
+			RUR_Pwd,
+			RUR_Tel,
+			RUR_School
+		FROM Registration_User
+		<where>
+			RUR_Email=#{RUR_Email} 
+			AND RUR_Pwd=#{RUR_Pwd}
+		</where> 
+	</select>
+	
+	<!-- 新增报名账号 -->
+	<insert id="add" parameterType="java.util.HashMap">
+		INSERT INTO 
+			Registration_User
+			(
+				RUR_Name,
+				RUR_Email,
+				RUR_Pwd,
+				RUR_Tel,
+				RUR_School
+			)VALUES
+			(
+				#{RUR_Name},
+				#{RUR_Email},
+				#{RUR_Pwd},
+				#{RUR_Tel},
+				#{RUR_School}
+			)
+	</insert>
+	
+	
+	<!-- 是否存在邮箱 -->
+	<select id="Is_Email" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(*)
+		FROM 
+			Registration_User 
+		<where>
+			RUR_Email = #{RUR_Email}
+		</where> 
+	</select>
+	
+	
+	
+	
+	
+</mapper>

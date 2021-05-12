@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.billie.dao.Sys_Mapper">
+	<select id="load_Nav" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		SELECT B.NAVID,B.NAVName,B.URL,B.ICON,B.BELONGTOID,B.URL FROM
+		T_BACKGROUNDMANAGEMENTNAVIGATIONBAR B
+		WHERE B.NAVID IN
+		<foreach collection="array" index="index" item="NAVID"
+			open="(" close=")" separator=",">
+			#{NAVID}
+		</foreach>
+	</select>
+	<select id="get_Admin_muen" parameterType="java.util.HashMap"
+		resultType="java.lang.String">
+		SELECT M.VISIBLE_MENU FROM T_MENU_PERMISSIONS M WHERE M.DEPARTMENT_ID=#{DID}
+		AND M.POSITION_ID=#{PID}
+	</select>
+	<select id="getNotice" resultType="java.util.HashMap">
+		SELECT COUNT(*) AS COUNT,D.`NAME` 
+		FROM T_ORDER O,T_DICTIONARY_DETAILS D 
+		WHERE D.DICTIONARY_ID=1 AND O.ORDER_STATUS=D.`CODE` AND O.ORDER_STATUS  IN(1,3)
+		GROUP  BY D.`NAME`
+	</select>
+
+</mapper>

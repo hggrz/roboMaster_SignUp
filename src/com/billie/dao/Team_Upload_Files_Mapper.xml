@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.billie.dao.Team_Upload_Files_Mapper">
+
+	
+	
+	<!-- 新增上传文件 -->
+	<insert id="add" parameterType="java.util.HashMap">
+		INSERT INTO 
+			Team_Upload_Files
+			(
+				TUFS_Name,
+				TUFS_Url,
+				TUFS_Time,
+				TUFS_SUPID,
+				TUFS_Category,
+				TUFS_UpUserID
+			)VALUES
+			(
+				#{TUFS_Name},
+				#{TUFS_Url},
+				now(),
+				#{TUFS_SUPID},
+				#{TUFS_Category},
+				#{TUFS_UpUserID}
+			)
+	</insert>
+	
+	
+	<!-- 下载文件是否是本人上传 -->
+	<select id="Is_Ex" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(*)
+		FROM 
+			Team_Upload_Files 
+		<where>
+			TUFS_UpUserID = #{TUFS_UpUserID}
+			AND TUFS_Url = #{TUFS_Url}
+		</where> 
+	</select>
+	
+	<!-- 查询已上传文件信息 -->
+	<select id="find_data" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT 
+			TUFS_Url,TUFS_Name,TUFS_Time,TUFS_Category
+		FROM 
+			Team_Upload_Files 
+		<where>
+			TUFS_UpUserID = #{TUFS_UpUserID}
+			AND TUFS_SUPID = #{TUFS_SUPID}
+		</where>
+		ORDER BY TUFS_Time DESC
+	</select>
+	
+	<!-- 上传文件时删除本人已有类型文件 -->
+	<delete id="DEL_ISEX" parameterType="java.util.HashMap">
+		DELETE FROM Team_Upload_Files 
+		<where>
+			TUFS_UpUserID = #{TUFS_UpUserID}
+			AND TUFS_Category = #{TUFS_Category}
+		</where>
+	</delete>
+	
+</mapper>

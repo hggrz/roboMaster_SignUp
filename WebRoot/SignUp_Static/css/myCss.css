@@ -1,0 +1,90 @@
+/* 界面样式
+*
+*@Author：yirenipeng
+*
+*/
+
+thead {
+	font-weight: bold;
+}
+
+.ysColor{
+	color: red;
+}
+
+.layui-form-label{
+	word-break:keep-all;
+}
+
+.anNiuStyle {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.FirstLevelFont{
+	font-size: 20px!important;
+	color: #1E9FFF!important;
+}
+
+.SecondaryFont{
+	font-size: 16px!important;
+	color: #FFB800!important;
+}
+
+.yhxs{
+	word-break:keep-all;
+	width: 120px;
+}
+
+.boldFont{
+	font-weight:bold;
+}
+
+.indexAnniu{
+	margin-top: -5px;
+}
+
+.inputValue{
+	margin-top: -5px;
+	margin-left: 5px;
+}
+
+.indexTitle{
+	color: #1E9FFF!important;
+}
+
+.layui_Input{
+	text-align: center!important;
+}
+
+.cudc_fieldset{
+	text-align:center;
+	margin-top: 5px;
+}
+
+.form_Top{
+	margin-top: -13px;
+}
+
+.checkBox_lable{
+	margin-top: -4px;
+}
+
+.checkBox_top{
+	margin-top: -20px;
+}
+
+.DetailsTop{
+	margin-top: -15px;
+}
+
+.child_Layui_Input_1{
+	margin-left: -150px;
+}
+
+.child_Layui_Input_2{
+	margin-left: -100px;
+}
+.child_Layui_Input_3{
+	margin-left: -375px;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.billie.dao.Sign_Up_Details_Mapper">
+
+	<!-- 添加报名信息表数据 -->
+	<insert id="add_SUDS" parameterType="java.util.HashMap" >
+		INSERT INTO 
+			Sign_Up_Details
+		(
+			SUDS_Name,
+			SUDS_Gender,
+			SUDS_School,
+			SUDS_Grade,
+			SUDS_StudentNumber,
+			SUDS_SUPID
+		)VALUE
+		<foreach item="SUDS_arr" collection="SUDS_arr"  separator="," >
+			(
+				#{SUDS_arr.SUDS_Name},
+				#{SUDS_arr.SUDS_Gender},
+				#{SUDS_arr.SUDS_School},
+				#{SUDS_arr.SUDS_Grade},
+				#{SUDS_arr.SUDS_StudentNumber},
+				#{SUP_ID}
+			)
+		</foreach>
+	</insert>
+	
+	<!-- 查询报名信息详情详情 -->
+	<select id="find_data"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			SUDS_Name,
+			SUDS_Gender,
+			SUDS_School,
+			SUDS_Grade,
+			SUDS_StudentNumber,
+			SUDS_SUPID
+		FROM
+			Sign_Up_Details
+		<where>
+			SUDS_SUPID = #{SUP_ID}
+		</where>
+	</select>
+	
+	<!-- 删除 报名详情信息 -->
+	<delete id="del_data" parameterType="java.util.HashMap">
+		DELETE FROM Sign_Up_Details <where>SUDS_SUPID = #{SUP_ID}</where>
+	</delete>
+
+</mapper>

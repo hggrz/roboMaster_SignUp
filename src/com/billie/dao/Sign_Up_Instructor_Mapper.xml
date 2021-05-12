@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.billie.dao.Sign_Up_Instructor_Mapper">
+
+	<!-- 添加指导老师信息数据 -->
+	<insert id="add_SUIR" parameterType="java.util.HashMap" >
+		INSERT INTO 
+			Sign_Up_Instructor
+		(
+			SUIR_Name,
+			SUIR_Gender,
+			SUIR_Email,
+			SUIR_Phone,
+			SUIR_Position,
+			SUIR_SUPID
+		)VALUE
+		<foreach item="SUIR_arr" collection="SUIR_arr"  separator="," >
+			(
+				#{SUIR_arr.SUIR_Name},
+				#{SUIR_arr.SUIR_Gender},
+				#{SUIR_arr.SUIR_Email},
+				#{SUIR_arr.SUIR_Phone},
+				#{SUIR_arr.SUIR_Position},
+				#{SUP_ID}
+			)
+		</foreach>
+	</insert>
+	
+	<!-- 查询指导老师信息详情 -->
+	<select id="find_data"  parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			SUIR_Name,
+			SUIR_Gender,
+			SUIR_Email,
+			SUIR_Phone,
+			SUIR_Position,
+			SUIR_SUPID
+		FROM
+			Sign_Up_Instructor
+		<where>
+			SUIR_SUPID = #{SUP_ID}
+		</where>
+	</select>
+	
+	<!-- 删除 指导老师信息-->
+	<delete id="del_data" parameterType="java.util.HashMap">
+		DELETE FROM Sign_Up_Instructor <where>SUIR_SUPID = #{SUP_ID}</where>
+	</delete>
+
+
+
+</mapper>

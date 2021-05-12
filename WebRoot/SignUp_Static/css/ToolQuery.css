@@ -1,0 +1,56 @@
+.ToolRental {
+	margin-top: 150px;
+	min-height: 500px;
+	width: 90%;
+}
+
+.GName {
+	width: 70px;
+	float: left;
+	margin-top: 8px;
+	font-weight: 400;
+	line-height: 20px;
+	text-align: right;
+	color: #03A9F4;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.GID {
+	color: #1ba7e6;
+	width: 70px;
+	float: left;
+	margin-top: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.Gimage {
+	color: #1ba7e6;
+	width: 80px;
+	height: 80px;
+	float: left;
+	border-radius: 20px;
+}
+
+.GIDLable {
+	color: #ffb64b;
+	float: left;
+	margin-top: 13px;
+	margin-left: 25px;
+	font-weight: 400;
+}
+
+.GNamelabel {
+	color: #ffb64b;
+	font-weight: 400;
+	float: left;
+	margin-top: 8px;
+	margin-left: 25px;
+}
+
+#PageUtil {
+	margin-top: 25px;
+	
+}

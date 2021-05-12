@@ -1,0 +1,63 @@
+.my_tr {
+	height: 80px;
+	width: 100%;
+}
+
+.edit {
+	color: orangered;
+	font-size: 16px;
+	width: 50px;
+	margin-top: 10px;
+	float: right;
+	margin-right: 20px;
+	text-align: right;
+}
+
+#sub {
+	float: right;
+}
+
+#Del {
+	float: right;
+	background-color: #2F4056;
+}
+
+.edit:hover {
+	cursor: pointer;
+}
+
+.layui-form-checkbox[lay-skin=primary]:last-child {
+	width: 72px;
+}
+
+.my_checkbox {
+	float: left;
+	margin-top: 35px;
+}
+
+.my_Shop {
+	height: 80px;
+}
+
+.my_Good_img {
+	max-height: 50px;
+	height: 50px;
+	margin-top: 15px;
+	float: left;
+	margin-left: -27px;
+}
+
+
+.GoodID {
+	float: left;
+	margin-left: 26px;
+	margin-top: 16px;
+	color: #03A9F4;
+}
+
+.GoodName {
+	float: left;
+    margin-top: 43px;
+    margin-left: -33px;
+    color: #FF9800;
+}

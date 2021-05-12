@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<!-- 打开注解装配并自动检测Bean和定义Bean，这句不能放在spring-mybatis.xml文件中，否则扫描不到controller -->
+	<context:component-scan base-package="com.billie.controller" />
+
+	<!-- 放行 静态资源 -->
+	<mvc:resources location="/static/" mapping="/static/**" />
+	<mvc:resources location="/Reception/" mapping="/Reception/**" />
+	<mvc:resources location="/Backstage" mapping="/Backstage/**" />
+	<mvc:resources location="/analysiscss/"
+		mapping="/analysiscss//**" />
+	<mvc:resources location="/anakysisjs/"
+		mapping="/anakysisjs/**" />
+	<mvc:resources location="/build/" mapping="/build/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/jedate/" mapping="/jedate/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/laydate/" mapping="/laydate/**" />
+	<mvc:resources location="/layer/" mapping="/layer/**" />
+	<mvc:resources location="/lib/" mapping="/lib/**" />
+	<mvc:resources location="/plugins/" mapping="/plugins/**" />
+	<mvc:resources location="/flie/" mapping="/flie/**" />
+	<!-- 启用spring mvc注解驱动，spring会自动为我们注册必要的几个Bean -->
+	<mvc:annotation-driven >
+		<mvc:message-converters> <!-- 消息转换器 -->
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	
+	
+	
+	<mvc:annotation-driven/> 
+
+   <context:component-scan base-package="controller" />
+  <mvc:resources mapping="/css/**" location="/css/"/> 
+  <mvc:resources mapping="/*.html" location="/WEB-INF/jsp/" /> 
+  <mvc:default-servlet-handler/>
+	
+	<bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/"
+          p:suffix=".jsp">
+	</bean>
+
+
+	<!-- 配置MultipartResolver，用于上传文件，使用spring的CommonsMultipartResolver -->
+	<!-- 普通的上传文件解析器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="3145728" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+	    <property name="exceptionMappings">  
+	        <props>
+	            <prop key="java.lang.Exception">redirect:/500.jsp</prop>  
+	            <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">redirect:/500.jsp</prop>  
+	        </props>   
+		</property>
+		<property name="defaultErrorView" value="redirect:/500.jsp"></property> 
+		<property name="defaultStatusCode" value="500"></property>
+	</bean>
+	
+</beans>   
