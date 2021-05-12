@@ -28,7 +28,6 @@ import com.billie.util.PageUtil;
 *
  */
 
-//hasfskd
 
 @Service(value="t_user_bizimpl")
 public class T_User_Bizimpl implements T_User_Biz{
